@@ -1,0 +1,1 @@
+#declarar problemas típicos, oscilador, órbita circular, etc.

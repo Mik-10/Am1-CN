@@ -11,23 +11,9 @@ from scipy.optimize import fsolve
 # ------------------------------------------------------------------------------
 def Euler(U, t, dt, F):
     """
-    Método de Euler explícito para integrar un paso temporal.
-    
-    Aproximación de primer orden que utiliza la derivada en el punto N
-    para estimar N+1.
-    
-    De la teoría: U_{n+1} = U_n + dt * F(U_n, t_n)
-    
-    Parámetros:
-    -----------
-    U : Vector de estado en el instante t
-    t : Tiempo actual
-    dt : Paso de tiempo
-    F : Función F(U, t) que define el problema de Cauchy dU/dt = F(U, t)
-    
-    Salida:
-    --------        
-    Vector de estado en el instante t + dt
+    Euler explícito (orden 1).
+    Fórmula: U_{n+1} = U_n + dt * F(U_n, t_n)
+    Retorna estado avanzado un paso.
     """
     return U + dt * F(U, t)
 
@@ -37,34 +23,14 @@ def Euler(U, t, dt, F):
 # ------------------------------------------------------------------------------
 def Crank_Nicolson(U, t, dt, F):
     """
-    Método de Crank-Nicolson (implícito) para integrar un paso.
-    
-    Fórmula: U_{n+1} = U_n + dt/2 * [F(U_n, t_n) + F(U_{n+1}, t_{n+1})]
-    
-    Se resuelve mediante el método de Newton para la ecuación no lineal:
-    G(U_{n+1}) = U_{n+1} - U_n - dt/2 * [F(U_n, t_n) + F(U_{n+1}, t_{n+1})] = 0
-    
-    Parámetros:
-    -----------
-    U : Vector de estado en el instante t
-    t : Tiempo actual
-    dt : Paso de tiempo
-    F : Función F(U, t) que define el problema de Cauchy dU/dt = F(U, t)
-    
-    Salida:
-    --------
-    Vector de estado en el instante t + dt
+    Crank–Nicolson (implícito, orden 2).
+    U_{n+1} = U_n + dt/2 [F(U_n,t_n)+F(U_{n+1},t_{n+1})]
+    Se resuelve G(U_{n+1})=0 con fsolve.
     """
     def residual(U_next):
-        """Función residual para el método de Newton"""
         return U_next - U - dt/2 * (F(U, t) + F(U_next, t + dt))
-    
-    # Estimación inicial usando Euler explícito
     U_next_guess = U + dt * F(U, t)
-    
-    # Resolver el sistema no lineal con fsolve (más robusto que newton para sistemas)
     U_next = fsolve(residual, U_next_guess)
-    
     return U_next
 
 
@@ -73,25 +39,14 @@ def Crank_Nicolson(U, t, dt, F):
 # ------------------------------------------------------------------------------
 def RK4(U, t, dt, F):
     """
-    Método de Runge-Kutta de orden 4 (RK4) - integra un paso.
-    
-    Método explícito
-    Parámetros:
-    -----------
-    U : Vector de estado en el instante t
-    t : Tiempo actual
-    dt : Paso de tiempo
-    F : Función F(U, t) que define el problema de Cauchy dU/dt = F(U, t)
-    
-    Salda:
-    --------
-    Vector de estado en el instante t + dt
+    Runge–Kutta clásico orden 4.
+    Combina 4 evaluaciones para error O(dt^5).
+    Retorna U_{n+1}.
     """
     k1 = F(U, t)
     k2 = F(U + dt/2 * k1, t + dt/2)
     k3 = F(U + dt/2 * k2, t + dt/2)
     k4 = F(U + dt * k3, t + dt)
-    
     return U + dt/6 * (k1 + 2*k2 + 2*k3 + k4)
 
 
@@ -100,34 +55,14 @@ def RK4(U, t, dt, F):
 # ------------------------------------------------------------------------------
 def Inverse_Euler(U, t, dt, F):
     """
-    Método de Euler inverso (implícito) para integrar un paso.
-    
-    Método implícito
-    
-    Se resuelve mediante el método de Newton para la ecuación no lineal:
-    G(U_{n+1}) = U_{n+1} - U_n - dt * F(U_{n+1}, t_{n+1}) = 0
-    
-    Parámetros:
-    -----------
-    U : Vector de estado en el instante t
-    t : Tiempo actual
-    dt : Paso de tiempo
-    F : Función F(U, t) que define el problema de Cauchy dU/dt = F(U, t)
-        
-    Salida:
-    --------
-    Vector de estado en el instante t + dt
+    Euler inverso (implícito, orden 1, amortigua).
+    Ecuación: U_{n+1} - U_n - dt F(U_{n+1}, t_{n+1}) = 0
+    Se resuelve con fsolve.
     """
     def residual(U_next):
-        """Función residual para el método de Newton"""
         return U_next - U - dt * F(U_next, t + dt)
-    
-    # Estimación inicial usando Euler explícito
     U_next_guess = U + dt * F(U, t)
-    
-    # Resolver el sistema no lineal con fsolve (más robusto que newton para sistemas)
     U_next = fsolve(residual, U_next_guess)
-    
     return U_next
 
 
@@ -136,26 +71,9 @@ def Inverse_Euler(U, t, dt, F):
 # ------------------------------------------------------------------------------
 def integrate_cauchy(scheme, U0, t_span, dt, F):
     """
-    Integra un problema de Cauchy usando un esquema temporal especificado.
-    
-    Resuelve el problema de valor inicial:
-    dU/dt = F(U, t)
-    U(t0) = U0
-    
-    Parámetros:
-    -----------
-    scheme : Función que implementa el esquema temporal (Euler, RK4, etc.)
-        Debe tener la firma: scheme(U, t, dt, F)
-    U0 : Condición inicial en t = t_span[0]
-    t_span : tuple
-        Tupla (t_initial, t_final) con los tiempos inicial y final
-    dt : Paso de tiempo 
-    F : Función F(U, t) que define el problema de Cauchy dU/dt = F(U, t)
-    
-    Salida:
-    --------
-    t_array : array de tiempos
-    U_array : array con los estados en cada tiempo (shape: [n_steps, len(U0)])
+    Integrador genérico IVP: dU/dt = F(U,t), U(t0)=U0.
+    scheme(U,t,dt,F) avanza un paso.
+    Devuelve arrays de tiempos y estados.
     """
     t_initial, t_final = t_span
     
@@ -181,21 +99,9 @@ def integrate_cauchy(scheme, U0, t_span, dt, F):
 # ------------------------------------------------------------------------------
 def Kepler_force(U, t):
     """
-    Calcula la fuerza gravitatoria en el problema de Kepler (dos cuerpos).
-
-    
-    Parámetros:
-    -----------
-    U : Vector de estado [x, y, vx, vy] donde:
-        - (x, y): posición en el plano
-        - (vx, vy): velocidad en el plano
-    t : Tiempo (no se usa en este problema autónomo)
-    
-    Salida:
-    --------
-    Derivada del vector de estado [vx, vy, ax, ay] donde:
-        - (vx, vy): velocidad
-        - (ax, ay): aceleración gravitatoria
+    RHS problema de dos cuerpos 2D (μ=1).
+    Entrada U=[x,y,vx,vy]; salida dU/dt=[vx,vy,ax,ay].
+    a = -r/|r|^3.
     """
     # Desempaquetar el vector de estado
     x, y, vx, vy = U
@@ -218,13 +124,8 @@ def Kepler_force(U, t):
 # ------------------------------------------------------------------------------
 def analyze_kepler_orbits():
     """
-    Integra el problema de Kepler con diferentes esquemas temporales y
-    analiza los resultados en términos de conservación de energía y momento.
-    
-    Se consideran órbitas elípticas, circulares y parabólicas, integrando
-    con los métodos: Euler, Inverse Euler, Crank-Nicolson y RK4.
-    
-    Se evalúa la influencia del paso temporal en la precisión y estabilidad.
+    Comparación de esquemas en órbita elíptica.
+    Métricas: órbita y energía vs tiempo; efecto dt.
     """
     print("="*70)
     print("ANÁLISIS DE ÓRBITAS DE KEPLER CON DIFERENTES ESQUEMAS TEMPORALES")
@@ -354,35 +255,14 @@ def analyze_kepler_orbits():
     print("EXPLICACIÓN DE RESULTADOS")
     print("="*70)
     print("""
-    1. COMPARACIÓN DE MÉTODOS:
-       - Euler explícito: Método de primer orden, tiende a incrementar la energía
-         artificialmente, causando que la órbita espiral hacia afuera.
-       
-       - Euler inverso: Método implícito de primer orden, más estable que Euler
-         explícito, pero tiende a disipar energía artificialmente.
-       
-       - Crank-Nicolson: Método implícito de segundo orden, mejor conservación
-         de energía que los métodos de primer orden.
-       
-       - RK4: Método explícito de cuarto orden, excelente conservación de energía
-         y precisión. El más recomendado para este tipo de problemas.
-    
-    2. EFECTO DEL PASO TEMPORAL:
-       - Pasos grandes (dt = 0.1): Mayor error de discretización, peor conservación
-         de energía, desviación visible de la órbita teórica.
-       
-       - Pasos pequeños (dt = 0.005): Mejor aproximación, mayor coste computacional,
-         conservación de energía mejorada significativamente.
-       
-       - Para RK4, el error decrece aproximadamente como O(dt⁴), como se observa
-         en la gráfica de convergencia (pendiente ~ 4 en escala log-log).
-    
-    3. CONCLUSIONES:
-       - Para problemas de Kepler, RK4 con dt ~ 0.01-0.001 ofrece un buen balance
-         entre precisión y eficiencia computacional.
-       
-       - Los métodos simplécticos (no implementados aquí) serían ideales para
-         conservación exacta de cantidades como energía y momento angular.
+    Resumen métodos:
+     Euler: energías crecientes (no conservativo).
+     Euler inverso: disipación numérica.
+     Crank–Nicolson: buena conservación (orden 2).
+     RK4: alta precisión y muy baja deriva energética.
+    Convergencia RK4 ~ O(dt^4).
+    Recomendación: dt pequeño balanceando coste y precisión.
+    Métodos simplécticos (no incluidos) mejorarían conservación larga.
     """)
     
     plt.show()
