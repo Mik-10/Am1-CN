@@ -23,7 +23,7 @@ def Euler(U, t, dt, F):
 # ------------------------------------------------------------------------------
 def Crank_Nicolson(U, t, dt, F):
     """
-    Crank–Nicolson (implícito, orden 2).
+    Crank-Nicolson (implícito, orden 2).
     U_{n+1} = U_n + dt/2 [F(U_n,t_n)+F(U_{n+1},t_{n+1})]
     Se resuelve G(U_{n+1})=0 con fsolve.
     """
@@ -39,7 +39,7 @@ def Crank_Nicolson(U, t, dt, F):
 # ------------------------------------------------------------------------------
 def RK4(U, t, dt, F):
     """
-    Runge–Kutta clásico orden 4.
+    Runge-Kutta clásico orden 4.
     Combina 4 evaluaciones para error O(dt^5).
     Retorna U_{n+1}.
     """
@@ -258,7 +258,7 @@ def analyze_kepler_orbits():
     Resumen métodos:
      Euler: energías crecientes (no conservativo).
      Euler inverso: disipación numérica.
-     Crank–Nicolson: buena conservación (orden 2).
+     Crank-Nicolson: buena conservación (orden 2).
      RK4: alta precisión y muy baja deriva energética.
     Convergencia RK4 ~ O(dt^4).
     Recomendación: dt pequeño balanceando coste y precisión.
