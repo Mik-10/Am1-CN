@@ -44,7 +44,7 @@ from problems import (
 ESQUEMA_TEMPORAL = RK4  # <-- CAMBIAR AQUÍ PARA TODOS LOS EJEMPLOS
 
 # Selector global de animación - sólo para el último ejemplo
-ANIMAR = False          # <-- CAMBIAR AQUÍ para activar/desactivar animaciones
+ANIMAR = False          # <-- CAMBIAR AQUÍ para activar/desactivar animaciones - tarda más!
 ANIM_FPS = 5           # Frames por segundo
 ANIM_STRIDE = 2         # Submuestreo de frames (1 = todos)
 
@@ -357,10 +357,10 @@ def run_hito5():
     print("""
 1. IMPLEMENTACIÓN:
    - Función nbody_rhs(): calcula interacciones gravitatorias entre N cuerpos
-   - Complejidad O(N²)
+   - Coste O(N²)
    - Evita singularidades cuando dist < 1e-10
 
-2. CONSERVACIÓN DE CANTIDADES:
+2. CONSERVACIÓN DE CANTIDADES: (comprobación)
    - Energía: debería conservarse
    - Momento angular: también conservado
    - Errores numéricos

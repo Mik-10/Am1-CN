@@ -49,14 +49,24 @@ def integrate_leapfrog(U0, t_span, dt):
         x = x_next
     return t, U
 
-# Factores de amplificación test y' = λ y (z=λ dt):
+# POLINOMIOS DE ESTABILIDAD - programar genérico para cada esquema, sin usar los poliniomios directamente 
+# def Stability_Region(Scheme, N, x0, xf, y0, yf):    
+#     x, y = linspace(x0, xf, N), linspace(y0, yf, N)
+#     rho = zeros((N, N), dtype=float64)
+#     for i in range(N):
+#         for j in range(N)
+#             w = complex(x[i], y[j])
+#             r = Scheme(U = 1., dt = 1., t = 0., F = lambda U, t: w*U)
+#             rho[i, j] = abs(r)
+#     return x, y, rho
+# -----------------------------------------------------------------------------
 # Euler: 1+z; Inverso: 1/(1-z); CN: (1+z/2)/(1-z/2); RK4: polinomio orden 4.
 # Leap-Frog: raíces r del polinomio r^2 - 2 z r - 1; estable si |r_i|≤1.
 # -----------------------------------------------------------------------------
 def G_euler(z): return 1 + z
 def G_inverse_euler(z): return 1/(1 - z)
 def G_crank_nicolson(z): return (1 + z/2)/(1 - z/2)
-def G_rk4(z): return 1 + z + z**2/2 + z**3/6 + z**4/24
+def G_rk4(z): return 1 + z + z**2/2 + z**3/6 + z**4/24 
 
 # Leap-Frog dos pasos: r^2 - 2 z r - 1 = 0 -> r = z ± sqrt(z**2 + 1)
 # Estable si max(|r1|,|r2|) ≤ 1
@@ -89,7 +99,7 @@ def plot_stability_regions():
     fig, axes = plt.subplots(rows, cols, figsize=(12, 7))
     axes = axes.ravel()
     cf_ref = None
-    cmap = ListedColormap(["#fc77db", "#54e5f8"])  # 0 inestable (magenta pastel), 1 estable (cyan pastel)
+    cmap = ListedColormap(["#ff69da", "#54e5f8"])  # 0 inestable (magenta pastel), 1 estable (cyan pastel)
     for ax, (name, crit) in zip(axes, methods):
         mask = crit(Z).astype(int)
         cf_ref = ax.pcolormesh(R, I, mask, cmap=cmap, vmin=0, vmax=1, shading='nearest')
@@ -191,8 +201,8 @@ def run_oscilador():
     fig1.tight_layout()
     fig1.savefig("oscilador_metodos.png", dpi=140)
 
-    # Frecuencia numérica aproximada usando cero‑cruces de x(t)
-    print("\nFrecuencia numérica estimada (cero‑cruces sucesivos):")
+    # Frecuencia numérica aproximada usando cero-cruces de x(t)
+    print("\nFrecuencia numérica estimada (cero-cruces sucesivos):")
     for nombre,(t,U) in resultados.items():
         x = U[:,0]
         # localizar índices donde x cambia de signo (cruces ascendentes)

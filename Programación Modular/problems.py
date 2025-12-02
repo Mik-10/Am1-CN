@@ -127,7 +127,7 @@ def kepler_energy(U, mu=1.0):
 
 def kepler_angular_momentum(U):
     """
-    Calcula momento angular de Kepler: L = r × v (componente z)
+    Calcula momento angular de Kepler: L = r x v (componente z)
     
     Parámetros:
     - U: [x, y, vx, vy] o array [N, 4]
@@ -270,6 +270,79 @@ def lorenz_rhs(U, t, sigma=10.0, rho=28.0, beta=8.0/3.0):
 
 
 # ------------------------------------------------------------------------------
+# CRTBP: Problema restringido de tres cuerpos (marco rotante) para estudio de Lagrangianos
+# ------------------------------------------------------------------------------
+def crtbp_rhs(U, t, mu=0.012277471):
+    """
+    Problema restringido de 3 cuerpos en marco rotante (x,y,vx,vy).
+    Primarios en posiciones fijas: (-mu,0) y (1-mu,0). Unidades normalizadas.
+
+    Ecuaciones:
+      r1 = sqrt((x+mu)^2 + y^2), r2 = sqrt((x-1+mu)^2 + y^2)
+      ax = 2*vy + x - (1-mu)*(x+mu)/r1^3 - mu*(x-1+mu)/r2^3
+      ay = -2*vx + y - (1-mu)*y/r1^3    - mu*y/r2^3
+    """
+    x, y, vx, vy = U
+    r1 = np.sqrt((x + mu)**2 + y**2)
+    r2 = np.sqrt((x - 1 + mu)**2 + y**2)
+
+    ax = 2*vy + x - (1 - mu)*(x + mu)/r1**3 - mu*(x - 1 + mu)/r2**3
+    ay = -2*vx + y - (1 - mu)*y/r1**3 - mu*y/r2**3
+    return np.array([vx, vy, ax, ay])
+
+
+def crtbp_jacobi(U, mu=0.012277471):
+    """
+    Constante de Jacobi C = 2*Omega(x,y) - v^2, donde
+    Omega = 0.5*(x^2 + y^2) + (1-mu)/r1 + mu/r2
+    """
+    x, y, vx, vy = U
+    r1 = np.sqrt((x + mu)**2 + y**2)
+    r2 = np.sqrt((x - 1 + mu)**2 + y**2)
+    Omega = 0.5*(x**2 + y**2) + (1 - mu)/r1 + mu/r2
+    v2 = vx**2 + vy**2
+    return 2*Omega - v2
+
+
+def crtbp_lagrange_points(mu=0.012277471):
+    """
+    Posiciones de L1–L5 en el marco rotante.
+    L4/L5: triangulares, exactos en normalización.
+    L1–L3: aproximaciones de tercer orden (series clásicas).
+    Retorna dict con arrays [x,y] para cada Li.
+    """
+    # Primarios
+    x1 = -mu
+    x2 = 1 - mu
+
+    # L4 y L5 (triangulares, forming equilátero)
+    xL4 = 0.5 - mu
+    yL4 =  np.sqrt(3)/2
+    xL5 = xL4
+    yL5 = -np.sqrt(3)/2
+
+    # Aprox para L1, L2, L3 (Murray & Dermott-style)
+    # q = (mu/(1-mu))**(1/3)
+    q = (mu/(1 - mu))**(1/3)
+
+    # L1 cerca de x2
+    xL1 = x2 - (q - q**2/3 - q**3/9)
+    # L2 más allá de x2
+    xL2 = x2 + (q + q**2/3 + q**3/9)
+    # L3 cerca de x1, al otro lado
+    xL3 = -1 - (5*mu/12) + (mu**2)/3  # aproximación sencilla
+    yL1 = yL2 = yL3 = 0.0
+
+    return {
+        'L1': np.array([xL1, yL1]),
+        'L2': np.array([xL2, yL2]),
+        'L3': np.array([xL3, yL3]),
+        'L4': np.array([xL4, yL4]),
+        'L5': np.array([xL5, yL5]),
+    }
+
+
+# ------------------------------------------------------------------------------
 # DICCIONARIO DE PROBLEMAS - WIP
 # ------------------------------------------------------------------------------
 
@@ -322,7 +395,13 @@ PROBLEMS = {
         'U0': np.array([1.0, 1.0, 1.0]),
         't_span': (0, 50.0),
         'description': 'Sistema de Lorenz (caótico)'
-    }
+    },
+    'crtbp': {
+        'rhs': crtbp_rhs,
+        'U0': np.array([0.5 - 0.012277471, np.sqrt(3)/2, 0.0, 0.0]),  # en L4 con v=0
+        't_span': (0.0, 20.0),
+        'description': 'CRTBP en marco rotante, estudio de puntos de Lagrange'
+    },
 }
 
 

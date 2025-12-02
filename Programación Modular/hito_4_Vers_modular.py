@@ -4,6 +4,7 @@ HITO 4 - VERSIÓN MODULAR
 
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 from Temporal_Schemes import (
     Euler, Inverse_Euler, Crank_Nicolson, RK4, Leap_Frog, integrate_cauchy
@@ -113,6 +114,10 @@ def run_hito4():
     print("HITO 4: OSCILADOR ARMÓNICO - ESTABILIDAD ABSOLUTA")
     print("=" * 70)
     
+    # Crear carpeta de salidas
+    output_dir = "Salidas Hito 4"
+    os.makedirs(output_dir, exist_ok=True)
+    
     # Configuración del problema
     prob = PROBLEMS['oscillator']
     F = prob['rhs']
@@ -132,7 +137,7 @@ def run_hito4():
     
     # 1) Generar regiones de estabilidad
     print("\n[1] Generando regiones de estabilidad...")
-    fig_stability = plot_stability_regions(save_path='regiones_estabilidad.png')
+    fig_stability = plot_stability_regions(save_path=os.path.join(output_dir, 'regiones_estabilidad.png'))
     plt.close(fig_stability)
     
     # 2) Análisis de factores de amplificación
@@ -200,9 +205,9 @@ def run_hito4():
     ax2.legend(loc='best')
     
     fig1.tight_layout()
-    fig1.savefig("oscilador_metodos.png", dpi=150, bbox_inches='tight')
+    fig1.savefig(os.path.join(output_dir, "oscilador_metodos.png"), dpi=150, bbox_inches='tight')
     plt.close(fig1)
-    print("\n[6] Figura guardada: oscilador_metodos.png")
+    print(f"\n[6] Figura guardada: {os.path.join(output_dir, 'oscilador_metodos.png')}")
     
     # 6) Estimación de frecuencia numérica
     print("\n[7] Estimación de frecuencia numérica (ω teórico = 1.0)")
