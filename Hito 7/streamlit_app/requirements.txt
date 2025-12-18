@@ -1,0 +1,16 @@
+# GMAT + Porkchop Plot - Interfaz Streamlit
+# Dependencias de Python
+
+# Framework de interfaz
+streamlit>=1.28.0
+
+# Análisis de datos
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualización
+matplotlib>=3.7.0
+scipy>=1.11.0
+
+# Nota: gmatpy (GMAT Python API) se carga dinámicamente desde la instalación de GMAT
+# No está disponible en PyPI - debe instalarse GMAT R2025a localmente

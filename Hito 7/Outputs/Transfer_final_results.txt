@@ -1,0 +1,2 @@
+Sonda_Red_son.UTCGregorian   Sonda_Red_son.EarthMJ2000Eq.INC   Sonda_Red_son.Earth.RMAG   Inyection.Element1        Bdot.Element1             Bdot.Element2             Bdot.Element3             Earth_arrival.Element1    
+15 May 2027 08:55:59.284     79.78520676494746                 8124.044018301818          2.477665453282776         -0.1009159022441291       0.01282743327313137       0.08980857888114187       -1.250768392473209        

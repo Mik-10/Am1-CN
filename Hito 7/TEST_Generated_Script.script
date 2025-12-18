@@ -1,0 +1,567 @@
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2025-11-10 18:01:26
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft heliocentric_SC;
+heliocentric_SC.DateFormat = UTCGregorian;
+heliocentric_SC.Epoch = '06 Jun 2026 11:59:28.000';
+heliocentric_SC.CoordinateSystem = Mars_Inertial;
+heliocentric_SC.DisplayStateType = Cartesian;
+heliocentric_SC.X = 1.000211074051104e-06;
+heliocentric_SC.Y = 9.928826384402614e-07;
+heliocentric_SC.Z = 1.005224284275735e-06;
+heliocentric_SC.VX = 9.999999997422945e-06;
+heliocentric_SC.VY = 9.999999971820996e-07;
+heliocentric_SC.VZ = 1.527590250813477e-15;
+heliocentric_SC.DryMass = 250;
+heliocentric_SC.Cd = 2.2;
+heliocentric_SC.Cr = 1.8;
+heliocentric_SC.DragArea = 15;
+heliocentric_SC.SRPArea = 1;
+heliocentric_SC.SPADDragScaleFactor = 1;
+heliocentric_SC.SPADSRPScaleFactor = 1;
+heliocentric_SC.AtmosDensityScaleFactor = 1;
+heliocentric_SC.ExtendedMassPropertiesModel = 'None';
+heliocentric_SC.NAIFId = -10000001;
+heliocentric_SC.NAIFIdReferenceFrame = -9000001;
+heliocentric_SC.OrbitColor = Red;
+heliocentric_SC.TargetColor = Teal;
+heliocentric_SC.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+heliocentric_SC.CdSigma = 1e+70;
+heliocentric_SC.CrSigma = 1e+70;
+heliocentric_SC.Id = 'SatId';
+heliocentric_SC.Attitude = CoordinateSystemFixed;
+heliocentric_SC.SPADSRPInterpolationMethod = Bilinear;
+heliocentric_SC.SPADSRPScaleFactorSigma = 1e+70;
+heliocentric_SC.SPADDragInterpolationMethod = Bilinear;
+heliocentric_SC.SPADDragScaleFactorSigma = 1e+70;
+heliocentric_SC.AtmosDensityScaleFactorSigma = 1e+70;
+heliocentric_SC.ModelFile = 'aura.3ds';
+heliocentric_SC.ModelOffsetX = 0;
+heliocentric_SC.ModelOffsetY = 0;
+heliocentric_SC.ModelOffsetZ = 0;
+heliocentric_SC.ModelRotationX = 0;
+heliocentric_SC.ModelRotationY = 0;
+heliocentric_SC.ModelRotationZ = 0;
+heliocentric_SC.ModelScale = 1;
+heliocentric_SC.AttitudeDisplayStateType = 'Quaternion';
+heliocentric_SC.AttitudeRateDisplayStateType = 'AngularVelocity';
+heliocentric_SC.AttitudeCoordinateSystem = Sun_coordinate;
+heliocentric_SC.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft test;
+test.DateFormat = UTCGregorian;
+test.Epoch = '06 Jun 2026 11:59:28.000';
+test.CoordinateSystem = Mars_Inertial;
+test.DisplayStateType = Keplerian;
+test.SMA = -3490.576340345992;
+test.ECC = 2.862156665893941;
+test.INC = 50.00000000012872;
+test.RAAN = 269.47985183165;
+test.AOP = 278.6924689891934;
+test.TA = 359.9999987925818;
+test.DryMass = 850;
+test.Cd = 2.2;
+test.Cr = 1.8;
+test.DragArea = 15;
+test.SRPArea = 1;
+test.SPADDragScaleFactor = 1;
+test.SPADSRPScaleFactor = 1;
+test.AtmosDensityScaleFactor = 1;
+test.ExtendedMassPropertiesModel = 'None';
+test.NAIFId = -10000001;
+test.NAIFIdReferenceFrame = -9000001;
+test.OrbitColor = [22 196 233];
+test.TargetColor = Teal;
+test.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+test.CdSigma = 1e+70;
+test.CrSigma = 1e+70;
+test.Id = 'SatId';
+test.Attitude = CoordinateSystemFixed;
+test.SPADSRPInterpolationMethod = Bilinear;
+test.SPADSRPScaleFactorSigma = 1e+70;
+test.SPADDragInterpolationMethod = Bilinear;
+test.SPADDragScaleFactorSigma = 1e+70;
+test.AtmosDensityScaleFactorSigma = 1e+70;
+test.ModelFile = 'aura.3ds';
+test.ModelOffsetX = 0;
+test.ModelOffsetY = 0;
+test.ModelOffsetZ = 0;
+test.ModelRotationX = 0;
+test.ModelRotationY = 0;
+test.ModelRotationZ = 0;
+test.ModelScale = 1;
+test.AttitudeDisplayStateType = 'Quaternion';
+test.AttitudeRateDisplayStateType = 'AngularVelocity';
+test.AttitudeCoordinateSystem = EarthMJ2000Eq;
+test.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Sonda_Red_son;
+Sonda_Red_son.DateFormat = UTCGregorian;
+Sonda_Red_son.Epoch = '06 Jun 2026 11:59:28.000';
+Sonda_Red_son.CoordinateSystem = Mars_Inertial;
+Sonda_Red_son.DisplayStateType = Keplerian;
+Sonda_Red_son.SMA = 6500.000000052995;
+Sonda_Red_son.ECC = 1.00568049821645e-12;
+Sonda_Red_son.INC = 50.00000000012872;
+Sonda_Red_son.RAAN = 269.47985183165;
+Sonda_Red_son.AOP = 0;
+Sonda_Red_son.TA = 278.692468989257;
+Sonda_Red_son.DryMass = 850;
+Sonda_Red_son.Cd = 2.2;
+Sonda_Red_son.Cr = 1.8;
+Sonda_Red_son.DragArea = 15;
+Sonda_Red_son.SRPArea = 1;
+Sonda_Red_son.SPADDragScaleFactor = 1;
+Sonda_Red_son.SPADSRPScaleFactor = 1;
+Sonda_Red_son.AtmosDensityScaleFactor = 1;
+Sonda_Red_son.ExtendedMassPropertiesModel = 'None';
+Sonda_Red_son.NAIFId = -10000001;
+Sonda_Red_son.NAIFIdReferenceFrame = -9000001;
+Sonda_Red_son.OrbitColor = [205 24 231];
+Sonda_Red_son.TargetColor = Teal;
+Sonda_Red_son.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+Sonda_Red_son.CdSigma = 1e+70;
+Sonda_Red_son.CrSigma = 1e+70;
+Sonda_Red_son.Id = 'SatId';
+Sonda_Red_son.Attitude = CoordinateSystemFixed;
+Sonda_Red_son.SPADSRPInterpolationMethod = Bilinear;
+Sonda_Red_son.SPADSRPScaleFactorSigma = 1e+70;
+Sonda_Red_son.SPADDragInterpolationMethod = Bilinear;
+Sonda_Red_son.SPADDragScaleFactorSigma = 1e+70;
+Sonda_Red_son.AtmosDensityScaleFactorSigma = 1e+70;
+Sonda_Red_son.ModelFile = 'aura.3ds';
+Sonda_Red_son.ModelOffsetX = 0;
+Sonda_Red_son.ModelOffsetY = 0;
+Sonda_Red_son.ModelOffsetZ = 0;
+Sonda_Red_son.ModelRotationX = 0;
+Sonda_Red_son.ModelRotationY = 0;
+Sonda_Red_son.ModelRotationZ = 0;
+Sonda_Red_son.ModelScale = 1;
+Sonda_Red_son.AttitudeDisplayStateType = 'Quaternion';
+Sonda_Red_son.AttitudeRateDisplayStateType = 'AngularVelocity';
+Sonda_Red_son.AttitudeCoordinateSystem = Sun_coordinate;
+Sonda_Red_son.EulerAngleSequence = '321';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel Sun_prop_ForceModel;
+Sun_prop_ForceModel.CentralBody = Sun;
+Sun_prop_ForceModel.PointMasses = {Sun};
+Sun_prop_ForceModel.Drag = None;
+Sun_prop_ForceModel.SRP = Off;
+Sun_prop_ForceModel.RelativisticCorrection = Off;
+Sun_prop_ForceModel.ErrorControl = RSSStep;
+
+Create ForceModel Earth_prop_ForceModel;
+Earth_prop_ForceModel.CentralBody = Earth;
+Earth_prop_ForceModel.PrimaryBodies = {Earth};
+Earth_prop_ForceModel.PointMasses = {Jupiter, Mars, Saturn, Sun};
+Earth_prop_ForceModel.Drag = None;
+Earth_prop_ForceModel.SRP = Off;
+Earth_prop_ForceModel.RelativisticCorrection = Off;
+Earth_prop_ForceModel.ErrorControl = RSSStep;
+Earth_prop_ForceModel.GravityField.Earth.Degree = 4;
+Earth_prop_ForceModel.GravityField.Earth.Order = 4;
+Earth_prop_ForceModel.GravityField.Earth.StmLimit = 100;
+Earth_prop_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+Earth_prop_ForceModel.GravityField.Earth.TideModel = 'None';
+
+Create ForceModel Sun_prop_complex_ForceModel;
+Sun_prop_complex_ForceModel.CentralBody = Sun;
+Sun_prop_complex_ForceModel.PointMasses = {Earth, Mars, Neptune, Saturn, Sun};
+Sun_prop_complex_ForceModel.Drag = None;
+Sun_prop_complex_ForceModel.SRP = Off;
+Sun_prop_complex_ForceModel.RelativisticCorrection = Off;
+Sun_prop_complex_ForceModel.ErrorControl = RSSStep;
+
+Create ForceModel Mars_prop_ForceModel;
+Mars_prop_ForceModel.CentralBody = Mars;
+Mars_prop_ForceModel.PrimaryBodies = {Mars};
+Mars_prop_ForceModel.PointMasses = {Earth, Jupiter, Saturn, Sun};
+Mars_prop_ForceModel.Drag = None;
+Mars_prop_ForceModel.SRP = Off;
+Mars_prop_ForceModel.RelativisticCorrection = Off;
+Mars_prop_ForceModel.ErrorControl = RSSStep;
+Mars_prop_ForceModel.GravityField.Mars.Degree = 4;
+Mars_prop_ForceModel.GravityField.Mars.Order = 4;
+Mars_prop_ForceModel.GravityField.Mars.StmLimit = 100;
+Mars_prop_ForceModel.GravityField.Mars.PotentialFile = 'Mars50c.cof';
+Mars_prop_ForceModel.GravityField.Mars.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator Sun_prop;
+Sun_prop.FM = Sun_prop_ForceModel;
+Sun_prop.Type = RungeKutta89;
+Sun_prop.InitialStepSize = 60;
+Sun_prop.Accuracy = 9.999999999999999e-12;
+Sun_prop.MinStep = 0.001;
+Sun_prop.MaxStep = 86400;
+Sun_prop.MaxStepAttempts = 50;
+Sun_prop.StopIfAccuracyIsViolated = true;
+
+Create Propagator Earth_prop;
+Earth_prop.FM = Earth_prop_ForceModel;
+Earth_prop.Type = RungeKutta89;
+Earth_prop.InitialStepSize = 60;
+Earth_prop.Accuracy = 9.999999999999999e-12;
+Earth_prop.MinStep = 0.001;
+Earth_prop.MaxStep = 2700;
+Earth_prop.MaxStepAttempts = 50;
+Earth_prop.StopIfAccuracyIsViolated = true;
+
+Create Propagator Sun_prop_complex;
+Sun_prop_complex.FM = Sun_prop_complex_ForceModel;
+Sun_prop_complex.Type = RungeKutta89;
+Sun_prop_complex.InitialStepSize = 60;
+Sun_prop_complex.Accuracy = 9.999999999999999e-12;
+Sun_prop_complex.MinStep = 0.001;
+Sun_prop_complex.MaxStep = 2700;
+Sun_prop_complex.MaxStepAttempts = 50;
+Sun_prop_complex.StopIfAccuracyIsViolated = true;
+
+Create Propagator Mars_prop;
+Mars_prop.FM = Mars_prop_ForceModel;
+Mars_prop.Type = RungeKutta89;
+Mars_prop.InitialStepSize = 60;
+Mars_prop.Accuracy = 9.999999999999999e-12;
+Mars_prop.MinStep = 0.001;
+Mars_prop.MaxStep = 2700;
+Mars_prop.MaxStepAttempts = 50;
+Mars_prop.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create ImpulsiveBurn heliocentric;
+heliocentric.CoordinateSystem = Local;
+heliocentric.Origin = Mars;
+heliocentric.Axes = VNB;
+heliocentric.Element1 = 0;
+heliocentric.Element2 = 0;
+heliocentric.Element3 = 0;
+heliocentric.DecrementMass = false;
+heliocentric.Isp = 300;
+heliocentric.GravitationalAccel = 9.81;
+
+Create ImpulsiveBurn Inyection;
+Inyection.CoordinateSystem = Local;
+Inyection.Origin = Mars;
+Inyection.Axes = VNB;
+Inyection.Element1 = 0;
+Inyection.Element2 = 0;
+Inyection.Element3 = 0;
+Inyection.DecrementMass = false;
+Inyection.Isp = 300;
+Inyection.GravitationalAccel = 9.81;
+
+Create ImpulsiveBurn Bdot;
+Bdot.CoordinateSystem = Local;
+Bdot.Origin = Sun;
+Bdot.Axes = VNB;
+Bdot.Element1 = 0;
+Bdot.Element2 = 0;
+Bdot.Element3 = 0;
+Bdot.DecrementMass = false;
+Bdot.Isp = 300;
+Bdot.GravitationalAccel = 9.81;
+
+Create ImpulsiveBurn Earth_arrival;
+Earth_arrival.CoordinateSystem = Local;
+Earth_arrival.Origin = Earth;
+Earth_arrival.Axes = VNB;
+Earth_arrival.Element1 = 0;
+Earth_arrival.Element2 = 0;
+Earth_arrival.Element3 = 0;
+Earth_arrival.DecrementMass = false;
+Earth_arrival.Isp = 300;
+Earth_arrival.GravitationalAccel = 9.81;
+
+%----------------------------------------
+%---------- Coordinate Systems
+%----------------------------------------
+
+Create CoordinateSystem Sun_coordinate;
+Sun_coordinate.Origin = Sun;
+Sun_coordinate.Axes = BodyInertial;
+
+Create CoordinateSystem Mars_Inertial;
+Mars_Inertial.Origin = Mars;
+Mars_Inertial.Axes = BodyInertial;
+
+Create CoordinateSystem Mars_Fixed;
+Mars_Fixed.Origin = Mars;
+Mars_Fixed.Axes = BodyFixed;
+
+%----------------------------------------
+%---------- Solvers
+%----------------------------------------
+
+Create DifferentialCorrector DC1;
+DC1.ShowProgress = true;
+DC1.ReportStyle = Concise;
+DC1.ReportFile = 'DifferentialCorrectorDC1.data';
+DC1.MaximumIterations = 400;
+DC1.DerivativeMethod = ForwardDifference;
+DC1.Algorithm = NewtonRaphson;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OrbitView Sun_view;
+Sun_view.SolverIterations = Current;
+Sun_view.UpperLeft = [ 0.03235294117647059 0 ];
+Sun_view.Size = [ 0.9041176470588236 1.059379217273954 ];
+Sun_view.RelativeZOrder = 170;
+Sun_view.Maximized = false;
+Sun_view.Add = {Sonda_Red_son, test, Earth, Mars};
+Sun_view.CoordinateSystem = Sun_coordinate;
+Sun_view.DrawObject = [ true true true true ];
+Sun_view.DataCollectFrequency = 1;
+Sun_view.UpdatePlotFrequency = 50;
+Sun_view.NumPointsToRedraw = 0;
+Sun_view.ShowPlot = true;
+Sun_view.MaxPlotPoints = 20000;
+Sun_view.ShowLabels = true;
+Sun_view.ViewPointReference = Sun;
+Sun_view.ViewPointVector = [ 0 0 450000000 ];
+Sun_view.ViewDirection = Sun;
+Sun_view.ViewScaleFactor = 1;
+Sun_view.ViewUpCoordinateSystem = Sun_coordinate;
+Sun_view.ViewUpAxis = Z;
+Sun_view.EclipticPlane = Off;
+Sun_view.XYPlane = On;
+Sun_view.WireFrame = Off;
+Sun_view.Axes = On;
+Sun_view.Grid = Off;
+Sun_view.SunLine = Off;
+Sun_view.UseInitialView = On;
+Sun_view.StarCount = 7000;
+Sun_view.EnableStars = On;
+Sun_view.EnableConstellations = On;
+
+Create ReportFile hyperbolic_vels;
+hyperbolic_vels.SolverIterations = Current;
+hyperbolic_vels.UpperLeft = [ 0 0 ];
+hyperbolic_vels.Size = [ 0 0 ];
+hyperbolic_vels.RelativeZOrder = 0;
+hyperbolic_vels.Maximized = false;
+hyperbolic_vels.Filename = 'c:\\Users\\mikde\\Desktop\\ETSIAE\\MUSE\\11 - PRIMERO MUSE\\PRIMER CUATRI\\AM1 - Ampliacion de Matematicas 1\\Hitos_CN\\Hito 7\\Outputs\\Plantilla_hyperbolic_vels.txt';
+hyperbolic_vels.Precision = 16;
+hyperbolic_vels.WriteHeaders = true;
+hyperbolic_vels.LeftJustify = On;
+hyperbolic_vels.ZeroFill = Off;
+hyperbolic_vels.FixedWidth = true;
+hyperbolic_vels.Delimiter = ' ';
+hyperbolic_vels.ColumnWidth = 23;
+hyperbolic_vels.WriteReport = true;
+hyperbolic_vels.AppendToExistingFile = false;
+
+Create OrbitView Earth_view;
+Earth_view.SolverIterations = Current;
+Earth_view.UpperLeft = [ 0 0 ];
+Earth_view.Size = [ 0.5541176470588235 0.9757085020242915 ];
+Earth_view.RelativeZOrder = 13;
+Earth_view.Maximized = false;
+Earth_view.Add = {Sonda_Red_son, test, heliocentric_SC, Earth, Mars};
+Earth_view.CoordinateSystem = EarthMJ2000Eq;
+Earth_view.DrawObject = [ true true true true true ];
+Earth_view.DataCollectFrequency = 1;
+Earth_view.UpdatePlotFrequency = 50;
+Earth_view.NumPointsToRedraw = 0;
+Earth_view.ShowPlot = true;
+Earth_view.MaxPlotPoints = 20000;
+Earth_view.ShowLabels = true;
+Earth_view.ViewPointReference = Earth;
+Earth_view.ViewPointVector = [ 0 0 30000 ];
+Earth_view.ViewDirection = Earth;
+Earth_view.ViewScaleFactor = 1;
+Earth_view.ViewUpCoordinateSystem = EarthMJ2000Eq;
+Earth_view.ViewUpAxis = Z;
+Earth_view.EclipticPlane = Off;
+Earth_view.XYPlane = On;
+Earth_view.WireFrame = Off;
+Earth_view.Axes = On;
+Earth_view.Grid = Off;
+Earth_view.SunLine = Off;
+Earth_view.UseInitialView = On;
+Earth_view.StarCount = 7000;
+Earth_view.EnableStars = On;
+Earth_view.EnableConstellations = On;
+
+Create OrbitView Mars_view;
+Mars_view.SolverIterations = Current;
+Mars_view.UpperLeft = [ 0.3194117647058823 0.1632928475033738 ];
+Mars_view.Size = [ 0.508235294117647 0.9865047233468286 ];
+Mars_view.RelativeZOrder = 8;
+Mars_view.Maximized = false;
+Mars_view.Add = {heliocentric_SC, test, Sonda_Red_son, Earth, Mars};
+Mars_view.CoordinateSystem = Mars_Inertial;
+Mars_view.DrawObject = [ true true true true true ];
+Mars_view.DataCollectFrequency = 1;
+Mars_view.UpdatePlotFrequency = 50;
+Mars_view.NumPointsToRedraw = 0;
+Mars_view.ShowPlot = true;
+Mars_view.MaxPlotPoints = 20000;
+Mars_view.ShowLabels = true;
+Mars_view.ViewPointReference = Mars;
+Mars_view.ViewPointVector = [ 30000 0 0 ];
+Mars_view.ViewDirection = Mars;
+Mars_view.ViewScaleFactor = 1;
+Mars_view.ViewUpCoordinateSystem = Mars_Inertial;
+Mars_view.ViewUpAxis = Z;
+Mars_view.EclipticPlane = Off;
+Mars_view.XYPlane = On;
+Mars_view.WireFrame = Off;
+Mars_view.Axes = On;
+Mars_view.Grid = Off;
+Mars_view.SunLine = Off;
+Mars_view.UseInitialView = On;
+Mars_view.StarCount = 7000;
+Mars_view.EnableStars = On;
+Mars_view.EnableConstellations = On;
+
+Create ReportFile final_results;
+final_results.SolverIterations = Current;
+final_results.UpperLeft = [ 0 0 ];
+final_results.Size = [ 0 0 ];
+final_results.RelativeZOrder = 0;
+final_results.Maximized = false;
+final_results.Filename = 'c:\\Users\\mikde\\Desktop\\ETSIAE\\MUSE\\11 - PRIMERO MUSE\\PRIMER CUATRI\\AM1 - Ampliacion de Matematicas 1\\Hitos_CN\\Hito 7\\Outputs\\Plantilla_final_results.txt';
+final_results.Precision = 16;
+final_results.WriteHeaders = true;
+final_results.LeftJustify = On;
+final_results.ZeroFill = Off;
+final_results.FixedWidth = true;
+final_results.Delimiter = ' ';
+final_results.ColumnWidth = 23;
+final_results.WriteReport = true;
+final_results.AppendToExistingFile = false;
+
+%----------------------------------------
+%---------- Arrays, Variables, Strings
+%----------------------------------------
+Create Variable I FlightTime C3E_Goal Half_Flight_Time Goal_BdotR Goal_BdotT Goal_SMA Goal_ecc Stop_switch;
+FlightTime = 350;
+C3E_Goal = 12.26969705922953;
+Half_Flight_Time = 175.0;
+Goal_BdotR = 22882.23838266063103;
+Goal_BdotT = 4288.70805121248941;
+Goal_SMA = 37500;
+Goal_ecc = 0.76;
+Stop_switch = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+Propagate 'Check-parking' Mars_prop(Sonda_Red_son) {Sonda_Red_son.ElapsedSecs = Sonda_Red_son.Mars.OrbitPeriod};
+Target 'Target_C3E' DC1 {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary_x' DC1(Inyection.Element1 = 10, {Perturbation = 0.0001, Lower = -10, Upper = 10, MaxStep = 0.2, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Inyecion' Inyection(Sonda_Red_son);
+   Achieve 'Achieve_C3E' DC1(Sonda_Red_son.Mars.C3Energy = C3E_Goal, {Tolerance = 0.000001});
+EndTarget;  % For targeter DC1
+Propagate 'SOI_Mars' Mars_prop(Sonda_Red_son) {Sonda_Red_son.Mars.RMAG = 576000};
+Propagate 'Prog_140' Sun_prop_complex(Sonda_Red_son) {Sonda_Red_son.ElapsedDays = Half_Flight_Time};
+Target 'BDot' DC1 {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary_x' DC1(Bdot.Element1 = -0.1007116075003828, {Perturbation = 0.0001, Lower = -1, Upper = 1, MaxStep = 0.2, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary_y' DC1(Bdot.Element2 = 0.0128313761276386, {Perturbation = 0.0001, Lower = -1, Upper = 1, MaxStep = 0.2, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary_z' DC1(Bdot.Element3 = 0.08885029989042006, {Perturbation = 0.0001, Lower = -1, Upper = 1, MaxStep = 0.2, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Bdot' Bdot(Sonda_Red_son);
+   Propagate 'SOI_Earth' Sun_prop_complex(Sonda_Red_son) {Sonda_Red_son.Earth.RMAG = 900000, StopTolerance = 1e-05};
+   Propagate 'Earth_periapsis' Earth_prop(Sonda_Red_son) {Sonda_Red_son.Earth.Periapsis, StopTolerance = 1e-05};
+   Achieve 'Bdot_R' DC1(Sonda_Red_son.EarthMJ2000Eq.BdotR = Goal_BdotR, {Tolerance = 0.1});
+   Achieve 'Bdot_T' DC1(Sonda_Red_son.EarthMJ2000Eq.BdotT = Goal_BdotT, {Tolerance = 0.01});
+EndTarget;  % For targeter DC1
+Target 'Earth_arrival' DC1 {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'VaryXEarth' DC1(Earth_arrival.Element1 = -5, {Perturbation = 0.0001, Lower = -10, Upper = 0, MaxStep = 0.2, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Earth_arrival' Earth_arrival(Sonda_Red_son);
+   Achieve 'Achieve_SMA' DC1(Sonda_Red_son.Earth.SMA = Goal_SMA, {Tolerance = 0.001});
+   Achieve 'Achieve_ecc' DC1(Sonda_Red_son.Earth.ECC = Goal_ecc, {Tolerance = 0.1});
+EndTarget;  % For targeter DC1
+Propagate 'Final Orbit' Earth_prop(Sonda_Red_son) {Sonda_Red_son.ElapsedSecs = Sonda_Red_son.Earth.OrbitPeriod, Sonda_Red_son.ElapsedDays = 3};
+Report 'Datos_finales' final_results Sonda_Red_son.UTCGregorian Sonda_Red_son.EarthMJ2000Eq.INC Sonda_Red_son.Earth.RMAG Inyection.Element1 Bdot.Element1 Bdot.Element2 Bdot.Element3 Earth_arrival.Element1;
